@@ -313,8 +313,13 @@ public class Library {
             if(phone.chars().allMatch(Character::isDigit)){
                 // Validation Email contains '@'
                 if(email.contains("@")){
-                    // Update data if input data valid
-                    updateData();
+                    // Validation quantity
+                    if(isQuantityAvailable()){
+                        // Update data if input data valid
+                        updateData();
+                    }else{
+                        JOptionPane.showMessageDialog(null, "Mohon maaf, buku tidak tersedia", "Stop!", JOptionPane.ERROR_MESSAGE);
+                    }
                 }else{
                     JOptionPane.showMessageDialog(null, "Alamat Email tidak valid", "Stop!", JOptionPane.ERROR_MESSAGE);
                 }
@@ -323,6 +328,18 @@ public class Library {
             }
         }else{
             JOptionPane.showMessageDialog(null, "Silahkan isi data dengan benar", "Stop!", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    
+    // Check quantity
+    private boolean isQuantityAvailable(){
+        int row = tableData.getSelectedRow();
+        int qty = Integer.parseInt(tableData.getModel().getValueAt(row, 3).toString());
+        
+        if(qty>0){
+            return true;
+        }else{
+            return false;
         }
     }
     
